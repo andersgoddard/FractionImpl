@@ -71,9 +71,13 @@ public class FractionImpl implements Fraction {
     }
 	
 	private void reduceFraction(){
+		if (numerator == 0)
+			denominator = 1;
+		else {
 		int greatestCommonDivisor = getGreatestCommonDivisor(denominator, numerator);
 		numerator = numerator / greatestCommonDivisor;
 		denominator = denominator / greatestCommonDivisor;
+		}
 	}
 	
 	private int getGreatestCommonDivisor(int a, int b){

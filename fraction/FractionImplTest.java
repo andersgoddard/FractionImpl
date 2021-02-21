@@ -47,5 +47,13 @@ public class FractionImplTest extends TestCase {
 		FractionImpl fraction2 = new FractionImpl("25/5");
 		assertEquals("5/1", fraction2.toString());
 	}
+	
+	public void testZero(){
+		FractionImpl fraction = new FractionImpl(0);
+		assertEquals("0/1", fraction.toString()); // this passed based on the code already written
+		
+		FractionImpl fraction2 = new FractionImpl("0/50");
+		assertEquals("0/1", fraction2.toString());
+	}
 }
 
