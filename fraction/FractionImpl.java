@@ -142,15 +142,30 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        return null;
+        FractionImpl fractionImpl = new FractionImpl(f.toString());
+		
+		int newNumerator = (this.numerator * fractionImpl.denominator)-(this.denominator * fractionImpl.numerator);
+		int newDenominator = this.denominator * fractionImpl.denominator;
+		
+		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
+		
+		return fraction;
     }
+
+// (a/b) * (c/d) is (a*c)/(b*d)
 
     /**
      * @inheritDoc
      */
     @Override
     public Fraction multiply(Fraction f) {
-        return null;
+        FractionImpl fractionImpl = new FractionImpl(f.toString());
+		
+		int newNumerator = this.numerator * fractionImpl.numerator;
+		int newDenominator = this.denominator * fractionImpl.denominator;
+		
+		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
+        return fraction;
     }
 
     /**
@@ -240,9 +255,6 @@ public class FractionImpl implements Fraction {
 
 
 // Methods
-
-// public Fraction subtract(Fraction f)	Returns a new Fraction that is the difference of this minus f:
-// a/b - c/d is (ad - bc)/bd
 
 // public Fraction multiply(Fraction f)	Returns a new Fraction that is the product of this and f:
 // (a/b) * (c/d) is (a*c)/(b*d)

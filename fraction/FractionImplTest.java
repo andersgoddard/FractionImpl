@@ -133,6 +133,37 @@ public class FractionImplTest extends TestCase {
 		fraction2 = new FractionImpl(4);
 		fraction3 = fraction.add(fraction2);
 		assertEquals("13/2", fraction3.toString());
+		
+		fraction2 = new FractionImpl("0");
+		fraction3 = fraction.add(fraction2);
+		assertEquals("5/2", fraction3.toString());
+	}
+	
+	public void testSubtract(){
+		Fraction fraction = new FractionImpl("1/2");
+		assertEquals("0", fraction.subtract(fraction).toString());
+		
+		Fraction fraction2 = new FractionImpl("1/4");
+		Fraction fraction3 = fraction.subtract(fraction2);
+		assertEquals("1/4", fraction3.toString());
+		
+		fraction = new FractionImpl("5/4");
+		fraction2 = new FractionImpl("1/4");
+		fraction3 = fraction.subtract(fraction2);
+		assertEquals("1", fraction3.toString());
+		
+		fraction2 = new FractionImpl("0");
+		fraction3 = fraction.subtract(fraction2);
+		assertEquals("5/4", fraction3.toString());
+	}
+	
+	public void testMultiply(){
+		Fraction fraction = new FractionImpl("1/2");
+		assertEquals("1/4", fraction.multiply(fraction).toString());
+		
+		Fraction fraction2 = new FractionImpl("0");
+		Fraction fraction3 = fraction.multiply(fraction2);
+		assertEquals("0", fraction3.toString());
 	}
 }
 
