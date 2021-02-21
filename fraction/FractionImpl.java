@@ -25,6 +25,7 @@ public class FractionImpl implements Fraction {
 		}
 		
 		reduceFraction();
+		dealWithNegativeDenominator();		
     }
 
     /**
@@ -68,6 +69,7 @@ public class FractionImpl implements Fraction {
 			throw new ArithmeticException("Division by zero error");
 		
 		reduceFraction();
+		dealWithNegativeDenominator();
     }
 
     /**
@@ -103,7 +105,17 @@ public class FractionImpl implements Fraction {
 		
 		return b;
 	}
-
+	
+    /**
+     * Checks if the denominator is less than 0 and, if so, reassigns the numerator and denominator to 0 subtracted by itself
+	 * e.g. numerator of -1 and denominator of -3 becomes 1 and 3 respectively
+     */		
+	private void dealWithNegativeDenominator(){
+		if (denominator < 0){
+			numerator = 0 - numerator;
+			denominator = 0 - denominator;
+		}
+	}
 
     /**
      * @inheritDoc

@@ -55,5 +55,19 @@ public class FractionImplTest extends TestCase {
 		FractionImpl fraction2 = new FractionImpl("0/50");
 		assertEquals("0", fraction2.toString());
 	}
+	
+	public void testNegativeFractions(){
+		FractionImpl fraction = new FractionImpl("-1/3");
+		assertEquals("-1/3", fraction.toString());
+		
+		FractionImpl fraction2 = new FractionImpl("1/-3");
+		assertEquals("-1/3", fraction2.toString());
+		
+		FractionImpl fraction3 = new FractionImpl("-3/-12");
+		assertEquals("1/4", fraction3.toString());
+		
+		FractionImpl fraction4 = new FractionImpl("-7");
+		assertEquals("-7/1", fraction4.toString());
+	}
 }
 
