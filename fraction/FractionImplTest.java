@@ -197,5 +197,22 @@ public class FractionImplTest extends TestCase {
 		
 		fraction2 = new FractionImpl("1/3");
 		assertFalse(fraction1.equals(fraction2));
+		
+		String test = "1/3";
+		assertFalse(test.equals(fraction2)); 
+	}
+	
+	public void testCompareTo(){
+		Fraction fraction1 = new FractionImpl("1/2");
+		Fraction fraction2 = new FractionImpl("1/2");
+		int comparison = fraction1.compareTo(fraction2);
+		assertEquals(0, comparison);
+		
+		fraction2 = new FractionImpl("1");
+		comparison = fraction1.compareTo(fraction2);
+		assertEquals(1, comparison);
+		
+		comparison = fraction2.compareTo(fraction1);
+		assertEquals(-1, comparison);
 	}
 }

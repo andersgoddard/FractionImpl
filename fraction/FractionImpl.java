@@ -217,9 +217,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public boolean equals(Object obj) {
-		FractionImpl that = new FractionImpl(obj.toString());
+		FractionImpl that = new FractionImpl(obj.toString()); 
 		
-        return this.numerator == that.numerator && this.denominator == that.denominator;
+        return this.numerator == that.numerator && this.denominator == that.denominator && obj instanceof Fraction; // should this instanceof check be done earlier in the method?
     }
 
     /**
@@ -244,7 +244,18 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public int compareTo(Fraction o) {
-        return 0;
+		FractionImpl that = new FractionImpl(o.toString());
+		
+		if (this.equals(that))
+			return 0;
+		
+		double thisDouble = this.numerator / this.denominator;
+		double thatDouble = that.numerator / that.denominator;
+		
+		if (thatDouble > thisDouble)
+			return 1;
+		else 
+			return -1;
     }
 
     /**
@@ -258,15 +269,3 @@ public class FractionImpl implements Fraction {
 			return numerator + "/" + denominator;
     }
 }
-
-
-// Methods
-
-// @Override
-// public boolean equals(Object o)	Returns true if o is a Fraction equal to this, and false in all other cases.
-
-// @Override
-// public int compareTo(Fraction o)	This method returns:
-// A negative int if this is less than o.
-// Zero if this is equal to o.
-// A positive int if this is greater than o.
