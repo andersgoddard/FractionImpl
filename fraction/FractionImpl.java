@@ -49,7 +49,7 @@ public class FractionImpl implements Fraction {
      *
      * @param fraction the string representation of the fraction
      */
-    public FractionImpl(String fraction) throws ArithmeticException {
+    public FractionImpl(String fraction) throws ArithmeticException, NumberFormatException {
         fraction = fraction.trim();
 		String[] elements = fraction.split("/");
 		String numerator;
@@ -214,8 +214,8 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-		if (numerator == 0)
-			return "0";
+		if (denominator == 1)
+			return numerator + "";
 		else 
 			return numerator + "/" + denominator;
     }

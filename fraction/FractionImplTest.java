@@ -12,7 +12,7 @@ public class FractionImplTest extends TestCase {
 	
 	public void testCreateFromSingleInt(){
 		FractionImpl fraction = new FractionImpl(5);
-		assertEquals("5/1", fraction.toString());
+		assertEquals("5", fraction.toString());
 	}
 	
 	public void testCreateFromString(){
@@ -21,7 +21,7 @@ public class FractionImplTest extends TestCase {
 		fraction = new FractionImpl (" 2 / 3 ");
 		assertEquals("2/3", fraction.toString());		
 		fraction = new FractionImpl("   4   ");
-		assertEquals("4/1", fraction.toString());		
+		assertEquals("4", fraction.toString());		
 	}
 	
 	public void testDivisionByZero(){
@@ -45,7 +45,7 @@ public class FractionImplTest extends TestCase {
 		assertEquals("4/5", fraction.toString());
 		
 		FractionImpl fraction2 = new FractionImpl("25/5");
-		assertEquals("5/1", fraction2.toString());
+		assertEquals("5", fraction2.toString());
 	}
 	
 	public void testZero(){
@@ -67,7 +67,7 @@ public class FractionImplTest extends TestCase {
 		assertEquals("1/4", fraction3.toString());
 		
 		FractionImpl fraction4 = new FractionImpl("-7");
-		assertEquals("-7/1", fraction4.toString());
+		assertEquals("-7", fraction4.toString());
 	}
 	
 	public void testIncorrectStringConstructor(){
@@ -78,7 +78,5 @@ public class FractionImplTest extends TestCase {
 			assertEquals(expected.getMessage(), "Cannot have spaces within the numerator or denominator");
 		}		
 	}
-	
-	
 }
 
