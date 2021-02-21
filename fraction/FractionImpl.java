@@ -127,10 +127,10 @@ public class FractionImpl implements Fraction {
 	 
     @Override
     public Fraction add(Fraction f) {
-		FractionImpl fractionImpl = new FractionImpl(f.toString());
+		FractionImpl that = new FractionImpl(f.toString());
 		
-		int newNumerator = (this.numerator * fractionImpl.denominator)+(this.denominator * fractionImpl.numerator);
-		int newDenominator = this.denominator * fractionImpl.denominator;
+		int newNumerator = (this.numerator * that.denominator)+(this.denominator * that.numerator);
+		int newDenominator = this.denominator * that.denominator;
 		
 		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
 		
@@ -142,27 +142,25 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction subtract(Fraction f) {
-        FractionImpl fractionImpl = new FractionImpl(f.toString());
+        FractionImpl that = new FractionImpl(f.toString());
 		
-		int newNumerator = (this.numerator * fractionImpl.denominator)-(this.denominator * fractionImpl.numerator);
-		int newDenominator = this.denominator * fractionImpl.denominator;
+		int newNumerator = (this.numerator * that.denominator)-(this.denominator * that.numerator);
+		int newDenominator = this.denominator * that.denominator;
 		
 		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
 		
 		return fraction;
     }
 
-// (a/b) * (c/d) is (a*c)/(b*d)
-
     /**
      * @inheritDoc
      */
     @Override
     public Fraction multiply(Fraction f) {
-        FractionImpl fractionImpl = new FractionImpl(f.toString());
+        FractionImpl that = new FractionImpl(f.toString());
 		
-		int newNumerator = this.numerator * fractionImpl.numerator;
-		int newDenominator = this.denominator * fractionImpl.denominator;
+		int newNumerator = this.numerator * that.numerator;
+		int newDenominator = this.denominator * that.denominator;
 		
 		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
         return fraction;
@@ -173,7 +171,13 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction divide(Fraction f) {
-        return null;
+        FractionImpl that = new FractionImpl(f.toString());
+		
+		int newNumerator = this.numerator * that.denominator;
+		int newDenominator = this.denominator * that.numerator;
+		
+		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
+        return fraction;
     }
 
     /**
@@ -213,7 +217,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+		FractionImpl that = new FractionImpl(obj.toString());
+		
+        return this.numerator == that.numerator && this.denominator == that.denominator;
     }
 
     /**
@@ -255,12 +261,6 @@ public class FractionImpl implements Fraction {
 
 
 // Methods
-
-// public Fraction multiply(Fraction f)	Returns a new Fraction that is the product of this and f:
-// (a/b) * (c/d) is (a*c)/(b*d)
-
-// public Fraction divide(Fraction f)	Returns a new Fraction that is the quotient of dividing this by f:
-// (a/b) / (c/d) is (a*d)/(b*c)
 
 // @Override
 // public boolean equals(Object o)	Returns true if o is a Fraction equal to this, and false in all other cases.

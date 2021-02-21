@@ -165,5 +165,37 @@ public class FractionImplTest extends TestCase {
 		Fraction fraction3 = fraction.multiply(fraction2);
 		assertEquals("0", fraction3.toString());
 	}
+	
+	public void testDivide(){
+		Fraction fraction = new FractionImpl("1");
+		Fraction fraction2 = new FractionImpl("2");
+		Fraction fraction3 = fraction.divide(fraction2);
+		assertEquals("1/2", fraction3.toString());
+		
+		fraction = new FractionImpl("1/4");
+		fraction2 = new FractionImpl("3/4");
+		fraction3 = fraction.divide(fraction2);
+		assertEquals("1/3", fraction3.toString());
+		
+		fraction = new FractionImpl("0");
+		fraction2 = new FractionImpl("1/4");
+		fraction3 = fraction.divide(fraction2);
+		assertEquals("0", fraction3.toString());
+		
+		try {
+			fraction3 = fraction2.divide(fraction);
+			fail();
+		} catch (ArithmeticException expected){
+			assertEquals(expected.getMessage(), "Division by zero error");
+		}
+	}
+	
+	public void testEquals(){
+		Fraction fraction1 = new FractionImpl("1/2");
+		Fraction fraction2 = new FractionImpl("1/2");
+		assertTrue(fraction1.equals(fraction2));
+		
+		fraction2 = new FractionImpl("1/3");
+		assertFalse(fraction1.equals(fraction2));
+	}
 }
-
