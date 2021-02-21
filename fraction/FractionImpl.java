@@ -69,7 +69,10 @@ public class FractionImpl implements Fraction {
 		
 		reduceFraction();
     }
-	
+
+    /**
+     * Divides the numerator and denominator in the instance of the class by the greatest common divisor
+     */	
 	private void reduceFraction(){
 		if (numerator == 0)
 			denominator = 1;
@@ -79,7 +82,14 @@ public class FractionImpl implements Fraction {
 		denominator = denominator / greatestCommonDivisor;
 		}
 	}
-	
+
+    /**
+     * Returns a new <pre>int</pre> that is the greatest common divisor of a and b using 
+     * Euclid's algorithm
+	 *
+	 * @param the integers a and b that we need the greatest common divisor of
+     * @return the greatest common divisor of a and b
+     */	
 	private int getGreatestCommonDivisor(int a, int b){
 		int remainder = a % b;
 		int quotient = a / b;
@@ -188,6 +198,54 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public String toString() {
-        return numerator + "/" + denominator;
+		if (numerator == 0)
+			return "0";
+		else 
+			return numerator + "/" + denominator;
     }
 }
+
+
+// The denominator should never be negative. A negative number for the denominator may be given to the constructor to create a fraction, but a negative fraction should be represented internally with a negative numerator.
+
+
+// The java method Integer(string).parseInt() will return the int equivalent of the string (assuming that the string represents a legal integer). Malformed input will cause it to throw a NumberFormatException.
+
+// Methods
+// The following lists the non-constructor methods that should be implemented.
+// In what follows, this is sometimes denoted by a/b, and an argument f is sometimes denoted by c/d.
+
+// public Fraction add(Fraction f)	Returns a new Fraction that is the sum of this and f:
+// a/b + c/d is (ad + bc)/bd
+
+// public Fraction subtract(Fraction f)	Returns a new Fraction that is the difference of this minus f:
+// a/b - c/d is (ad - bc)/bd
+
+// public Fraction multiply(Fraction f)	Returns a new Fraction that is the product of this and f:
+// (a/b) * (c/d) is (a*c)/(b*d)
+
+// public Fraction divide(Fraction f)	Returns a new Fraction that is the quotient of dividing this by f:
+// (a/b) / (c/d) is (a*d)/(b*c)
+
+// public Fraction abs()	Returns a new Fraction that is the absolute value of this fraction.
+
+// public Fraction negate()	Returns a new Fraction that has the same numeric value of this fraction, but the opposite sign.
+
+// public Fraction inverse()	The inverse of a/b is b/a.
+
+// @Override
+// public boolean equals(Object o)	Returns true if o is a Fraction equal to this, and false in all other cases.
+
+// @Override
+// public int compareTo(Fraction o)	This method returns:
+// A negative int if this is less than o.
+// Zero if this is equal to o.
+// A positive int if this is greater than o.
+// 
+//@Override
+// public String toString()	Returns a String of the form n/d, where n is the numerator and d is the denominator.
+// However, if d is 1, just return n (as a String).
+// The returned String should not contain any blanks.
+// If the fraction represents a negative number, a minus sign should precede n.
+// This should be one of the first methods you write, because it will help you in debugging.
+// Note that, for the purposes of this assignment, there is no need to implement the related clone() and hashCode() methods.

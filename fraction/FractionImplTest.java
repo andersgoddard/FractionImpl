@@ -50,10 +50,10 @@ public class FractionImplTest extends TestCase {
 	
 	public void testZero(){
 		FractionImpl fraction = new FractionImpl(0);
-		assertEquals("0/1", fraction.toString()); // this passed based on the code already written
+		assertEquals("0", fraction.toString());
 		
 		FractionImpl fraction2 = new FractionImpl("0/50");
-		assertEquals("0/1", fraction2.toString());
+		assertEquals("0", fraction2.toString());
 	}
 }
 
