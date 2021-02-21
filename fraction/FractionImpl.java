@@ -158,7 +158,15 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction abs() {
-        return null;
+        Fraction fraction;
+		
+		if (numerator < 0){
+			fraction = new FractionImpl(0 - numerator, denominator);
+		} else {
+			fraction = new FractionImpl(numerator, denominator);
+		}
+		
+		return fraction;
     }
 
     /**
@@ -223,8 +231,6 @@ public class FractionImpl implements Fraction {
 
 
 // Methods
-// The following lists the non-constructor methods that should be implemented.
-// In what follows, this is sometimes denoted by a/b, and an argument f is sometimes denoted by c/d.
 
 // public Fraction add(Fraction f)	Returns a new Fraction that is the sum of this and f:
 // a/b + c/d is (ad + bc)/bd
@@ -252,11 +258,3 @@ public class FractionImpl implements Fraction {
 // A negative int if this is less than o.
 // Zero if this is equal to o.
 // A positive int if this is greater than o.
-// 
-//@Override
-// public String toString()	Returns a String of the form n/d, where n is the numerator and d is the denominator.
-// However, if d is 1, just return n (as a String).
-// The returned String should not contain any blanks.
-// If the fraction represents a negative number, a minus sign should precede n.
-// This should be one of the first methods you write, because it will help you in debugging.
-// Note that, for the purposes of this assignment, there is no need to implement the related clone() and hashCode() methods.

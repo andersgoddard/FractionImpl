@@ -78,5 +78,14 @@ public class FractionImplTest extends TestCase {
 			assertEquals(expected.getMessage(), "Cannot have spaces within the numerator or denominator");
 		}		
 	}
+	
+	public void testAbs(){
+		Fraction fraction1 = new FractionImpl("-4/5");
+		Fraction fraction2 = fraction1.abs();
+		assertEquals("4/5", fraction2.toString());
+		
+		Fraction fraction3 = fraction2.abs();
+		assertEquals("4/5", fraction3.toString());
+	}
 }
 
