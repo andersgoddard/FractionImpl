@@ -87,5 +87,23 @@ public class FractionImplTest extends TestCase {
 		Fraction fraction3 = fraction2.abs();
 		assertEquals("4/5", fraction3.toString());
 	}
+	
+	public void testInverse(){
+		Fraction fraction1 = new FractionImpl("2/5");
+		Fraction fraction2 = fraction1.inverse();
+		assertEquals("5/2", fraction2.toString());
+		
+		Fraction fraction3 = new FractionImpl("1/5");
+		assertEquals("5", fraction3.inverse().toString());
+		
+		Fraction fraction4 = new FractionImpl("0/6");
+		
+		try {
+			Fraction fraction5 = fraction4.inverse();
+			fail();
+		} catch (ArithmeticException expected){
+			assertEquals(expected.getMessage(), "Division by zero error");
+		}
+	}
 }
 

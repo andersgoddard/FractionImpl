@@ -206,7 +206,8 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction inverse() {
-        return null;
+		Fraction fraction = new FractionImpl(denominator, numerator);
+        return fraction;
     }
 
     /**
@@ -243,8 +244,6 @@ public class FractionImpl implements Fraction {
 
 // public Fraction divide(Fraction f)	Returns a new Fraction that is the quotient of dividing this by f:
 // (a/b) / (c/d) is (a*d)/(b*c)
-
-// public Fraction abs()	Returns a new Fraction that is the absolute value of this fraction.
 
 // public Fraction negate()	Returns a new Fraction that has the same numeric value of this fraction, but the opposite sign.
 
