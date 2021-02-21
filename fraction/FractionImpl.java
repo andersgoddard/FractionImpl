@@ -54,22 +54,26 @@ public class FractionImpl implements Fraction {
 		String[] elements = fraction.split("/");
 		String numerator;
 		
-		if (elements.length == 1){
-			numerator = elements[0].trim();
-			this.numerator = Integer.parseInt(numerator);
-			this.denominator = 1;
-		} else if (elements.length == 2){
-			numerator = elements[0].trim();
-			String denominator = elements[1].trim();
-			this.numerator = Integer.parseInt(numerator);
-			this.denominator = Integer.parseInt(denominator);
-		}		
-		
-		if (denominator == 0)
-			throw new ArithmeticException("Division by zero error");
-		
-		reduceFraction();
-		dealWithNegativeDenominator();
+		try {
+			if (elements.length == 1){
+				numerator = elements[0].trim();
+				this.numerator = Integer.parseInt(numerator);
+				this.denominator = 1;
+			} else if (elements.length == 2){
+				numerator = elements[0].trim();
+				String denominator = elements[1].trim();
+				this.numerator = Integer.parseInt(numerator);
+				this.denominator = Integer.parseInt(denominator);
+			}		
+			
+			if (denominator == 0)
+				throw new ArithmeticException("Division by zero error");
+			
+			reduceFraction();
+			dealWithNegativeDenominator();
+		} catch (NumberFormatException e) {
+			throw new NumberFormatException("Cannot have spaces within the numerator or denominator");
+		}
     }
 
     /**
@@ -217,11 +221,6 @@ public class FractionImpl implements Fraction {
     }
 }
 
-
-// The denominator should never be negative. A negative number for the denominator may be given to the constructor to create a fraction, but a negative fraction should be represented internally with a negative numerator.
-
-
-// The java method Integer(string).parseInt() will return the int equivalent of the string (assuming that the string represents a legal integer). Malformed input will cause it to throw a NumberFormatException.
 
 // Methods
 // The following lists the non-constructor methods that should be implemented.

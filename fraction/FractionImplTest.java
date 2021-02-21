@@ -69,5 +69,16 @@ public class FractionImplTest extends TestCase {
 		FractionImpl fraction4 = new FractionImpl("-7");
 		assertEquals("-7/1", fraction4.toString());
 	}
+	
+	public void testIncorrectStringConstructor(){
+		try {
+			FractionImpl fraction = new FractionImpl(" 4 / 1 2");
+			fail();
+		} catch (NumberFormatException expected){
+			assertEquals(expected.getMessage(), "Cannot have spaces within the numerator or denominator");
+		}		
+	}
+	
+	
 }
 
