@@ -24,7 +24,20 @@ public class FractionImplTest extends TestCase {
 		assertEquals("4/1", fraction.toString());		
 	}
 	
-	// Need to write a test for assertThrows
-
+	public void testDivisionByZero(){
+		try {
+			FractionImpl fraction1 = new FractionImpl("3/0");
+			fail();
+		} catch (ArithmeticException expected){
+			assertEquals(expected.getMessage(), "Division by zero error");
+		}
+		
+		try {
+			FractionImpl fraction2 = new FractionImpl(3, 0);
+			fail();
+		} catch (ArithmeticException expected){
+			assertEquals(expected.getMessage(), "Division by zero error");
+		}		
+	}
 }
 

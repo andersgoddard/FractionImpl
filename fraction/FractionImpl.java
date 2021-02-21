@@ -17,12 +17,12 @@ public class FractionImpl implements Fraction {
 	private int denominator;
 	 
     public FractionImpl(int numerator, int denominator) throws ArithmeticException {
-		// if (denominator == 0)
-			// throw new ArithmeticException("Division by zero error");
-		// else {		
+		if (denominator == 0)
+			throw new ArithmeticException("Division by zero error");
+		else {		
         this.numerator = numerator;
 		this.denominator = denominator;
-		// }
+		}
     }
 
     /**
@@ -62,8 +62,8 @@ public class FractionImpl implements Fraction {
 			this.denominator = Integer.parseInt(denominator);
 		}		
 		
-		// if (denominator == 0)
-			// throw new ArithmeticException("Division by zero error");
+		if (denominator == 0)
+			throw new ArithmeticException("Division by zero error");
     }
 
     /**
