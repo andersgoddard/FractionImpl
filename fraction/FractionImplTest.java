@@ -105,5 +105,14 @@ public class FractionImplTest extends TestCase {
 			assertEquals(expected.getMessage(), "Division by zero error");
 		}
 	}
+	
+	public void testNegate(){
+		Fraction fraction = new FractionImpl("2/5");
+		Fraction fraction2 = fraction.negate();
+		assertEquals("-2/5", fraction2.toString());
+		
+		Fraction fraction3 = fraction2.negate();
+		assertEquals("2/5", fraction3.toString());
+	}
 }
 

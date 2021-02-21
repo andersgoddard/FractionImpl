@@ -174,7 +174,7 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction negate() {
-        return null;
+        return new FractionImpl(0 - numerator, denominator);
     }
 
     /**
@@ -246,8 +246,6 @@ public class FractionImpl implements Fraction {
 // (a/b) / (c/d) is (a*d)/(b*c)
 
 // public Fraction negate()	Returns a new Fraction that has the same numeric value of this fraction, but the opposite sign.
-
-// public Fraction inverse()	The inverse of a/b is b/a.
 
 // @Override
 // public boolean equals(Object o)	Returns true if o is a Fraction equal to this, and false in all other cases.
