@@ -39,5 +39,13 @@ public class FractionImplTest extends TestCase {
 			assertEquals(expected.getMessage(), "Division by zero error");
 		}		
 	}
+	
+	public void testCreateAndReduce(){
+		FractionImpl fraction = new FractionImpl(48, 60);
+		assertEquals("4/5", fraction.toString());
+		
+		FractionImpl fraction2 = new FractionImpl("25/5");
+		assertEquals("5/1", fraction2.toString());
+	}
 }
 

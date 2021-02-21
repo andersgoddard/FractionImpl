@@ -23,6 +23,8 @@ public class FractionImpl implements Fraction {
         this.numerator = numerator;
 		this.denominator = denominator;
 		}
+		
+		reduceFraction();
     }
 
     /**
@@ -64,7 +66,30 @@ public class FractionImpl implements Fraction {
 		
 		if (denominator == 0)
 			throw new ArithmeticException("Division by zero error");
+		
+		reduceFraction();
     }
+	
+	private void reduceFraction(){
+		int greatestCommonDivisor = getGreatestCommonDivisor(denominator, numerator);
+		numerator = numerator / greatestCommonDivisor;
+		denominator = denominator / greatestCommonDivisor;
+	}
+	
+	private int getGreatestCommonDivisor(int a, int b){
+		int remainder = a % b;
+		int quotient = a / b;
+		
+		while (remainder != 0){
+			a = b;
+			b = remainder;
+			quotient = a / b;
+			remainder = a - (b * quotient);
+		}
+		
+		return b;
+	}
+
 
     /**
      * @inheritDoc
