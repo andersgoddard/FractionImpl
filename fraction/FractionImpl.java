@@ -25,7 +25,7 @@ public class FractionImpl implements Fraction {
 		}
 		
 		reduceFraction();
-		dealWithNegativeDenominator();		
+		ensurePositiveDenominator();		
     }
 
     /**
@@ -70,7 +70,7 @@ public class FractionImpl implements Fraction {
 				throw new ArithmeticException("Division by zero error");
 			
 			reduceFraction();
-			dealWithNegativeDenominator();
+			ensurePositiveDenominator();
 		} catch (NumberFormatException e) {
 			throw new NumberFormatException("Cannot have spaces within the numerator or denominator");
 		}
@@ -114,7 +114,7 @@ public class FractionImpl implements Fraction {
      * Checks if the denominator is less than 0 and, if so, reassigns the numerator and denominator to 0 subtracted by itself
 	 * e.g. numerator of -1 and denominator of -3 becomes 1 and 3 respectively
      */		
-	private void dealWithNegativeDenominator(){
+	private void ensurePositiveDenominator(){
 		if (denominator < 0){
 			numerator = 0 - numerator;
 			denominator = 0 - denominator;
