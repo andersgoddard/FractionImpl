@@ -114,5 +114,25 @@ public class FractionImplTest extends TestCase {
 		Fraction fraction3 = fraction2.negate();
 		assertEquals("2/5", fraction3.toString());
 	}
+	
+	public void testAdd(){
+		Fraction fraction = new FractionImpl("1/2");
+		assertEquals("1", fraction.add(fraction).toString());
+		
+		fraction = new FractionImpl("1/4");
+		Fraction fraction2 = new FractionImpl("1/2");
+		Fraction fraction3 = fraction.add(fraction2);
+		assertEquals("3/4", fraction3.toString());
+		
+		fraction = new FractionImpl("-1/2");
+		fraction2 = new FractionImpl("1/2");
+		fraction3 = fraction.add(fraction2);
+		assertEquals("0", fraction3.toString());
+		
+		fraction = new FractionImpl(5, 2);
+		fraction2 = new FractionImpl(4);
+		fraction3 = fraction.add(fraction2);
+		assertEquals("13/2", fraction3.toString());
+	}
 }
 

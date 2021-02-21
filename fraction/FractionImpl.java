@@ -124,9 +124,17 @@ public class FractionImpl implements Fraction {
     /**
      * @inheritDoc
      */
+	 
     @Override
     public Fraction add(Fraction f) {
-        return null;
+		FractionImpl fractionImpl = new FractionImpl(f.toString());
+		
+		int newNumerator = (this.numerator * fractionImpl.denominator)+(this.denominator * fractionImpl.numerator);
+		int newDenominator = this.denominator * fractionImpl.denominator;
+		
+		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
+		
+		return fraction;
     }
 
     /**
@@ -233,9 +241,6 @@ public class FractionImpl implements Fraction {
 
 // Methods
 
-// public Fraction add(Fraction f)	Returns a new Fraction that is the sum of this and f:
-// a/b + c/d is (ad + bc)/bd
-
 // public Fraction subtract(Fraction f)	Returns a new Fraction that is the difference of this minus f:
 // a/b - c/d is (ad - bc)/bd
 
@@ -244,8 +249,6 @@ public class FractionImpl implements Fraction {
 
 // public Fraction divide(Fraction f)	Returns a new Fraction that is the quotient of dividing this by f:
 // (a/b) / (c/d) is (a*d)/(b*c)
-
-// public Fraction negate()	Returns a new Fraction that has the same numeric value of this fraction, but the opposite sign.
 
 // @Override
 // public boolean equals(Object o)	Returns true if o is a Fraction equal to this, and false in all other cases.
