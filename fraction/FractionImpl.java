@@ -122,7 +122,7 @@ public class FractionImpl implements Fraction {
 	}
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
 	 
     @Override
@@ -138,7 +138,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction subtract(Fraction f) {
@@ -153,7 +153,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction multiply(Fraction f) {
@@ -167,7 +167,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction divide(Fraction f) {
@@ -181,7 +181,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction abs() {
@@ -197,7 +197,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction negate() {
@@ -205,7 +205,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int hashCode() {
@@ -213,7 +213,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
@@ -223,7 +223,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     protected Object clone() throws CloneNotSupportedException {
@@ -231,7 +231,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public Fraction inverse() {
@@ -240,7 +240,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public int compareTo(Fraction o) {
@@ -259,7 +259,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String toString() {

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"fraction","l":"Fraction"},{"p":"fraction","l":"FractionImpl"}];updateSearchResults();
