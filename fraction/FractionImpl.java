@@ -1,13 +1,16 @@
 package fraction;
 
+/**
+ * Representing fractions of the form numerator and denominator
+ */
 public class FractionImpl implements Fraction {
     /**
      * Parameters are the <em>numerator</em> and the <em>denominator</em>.
-     * Normalize the fraction as you create it.
-     * For instance, if the parameters are <pre>(8, -12)</pre>, create a <pre>Fraction</pre> with numerator
-     * <pre>-2</pre> and denominator <pre>3</pre>.
+     * The fraction is normalized as it is created.
+     * For instance, if the parameters are <code>(8, -12)</code>, a <code>Fraction</code> is created with numerator
+     * <code>-2</code> and denominator <code>3</code>.
      *
-     * The constructor should throw an <pre>ArithmeticException</pre> if the denominator is zero.
+     * The constructor throws an <code>ArithmeticException</code> if the denominator is zero.
      *
      * @param numerator
      * @param denominator
@@ -15,7 +18,14 @@ public class FractionImpl implements Fraction {
 	 
 	private int numerator; 
 	private int denominator;
-	 
+	
+
+    /**
+     * The parameter is the numerator and denominator.
+     *
+     * @param numerator the integer representing the numerator 
+	 * @param denominator the integer representing the denominator
+     */	
     public FractionImpl(int numerator, int denominator) throws ArithmeticException {
 		if (denominator == 0)
 			throw new ArithmeticException("Division by zero error");
@@ -29,7 +39,7 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * The parameter is the numerator and <pre>1</pre> is the implicit denominator.
+     * The parameter is the numerator and <code>1</code> is the implicit denominator.
      *
      * @param wholeNumber representing the numerator
      */
@@ -39,13 +49,8 @@ public class FractionImpl implements Fraction {
     }
 
     /**
-     * The parameter is a <pre>String</pre> containing either a whole number, such as `5` or `-3`, or a fraction,
-     * such as "8/-12".
-     * Allow blanks around (but not within) integers.
-     * The constructor should throw an <pre>ArithmeticException</pre>
-     * if given a string representing a fraction whose denominator is zero.
-     * <p>
-     * You may find it helpful to look at the available String API methods in the Java API.
+     * The parameter is a <code>String</code> containing either a whole number, such as '5' or '-3', or a fraction,
+     * such as "8/-12". (Blanks are allowed around but not within integers.)
      *
      * @param fraction the string representation of the fraction
      */
@@ -90,23 +95,22 @@ public class FractionImpl implements Fraction {
 	}
 
     /**
-     * Returns a new <pre>int</pre> that is the greatest common divisor of a and b using 
+     * Returns a new <code>int</code> that is the greatest common divisor of a and b using 
      * Euclid's algorithm
 	 *
-	 * @param the integers a and b that we need the greatest common divisor of
+	 * @param a the denominator field in the object 
+	 * @param b the numerator field in the object
      * @return the greatest common divisor of a and b
      */	
-	private int getGreatestCommonDivisor(int a, int b){
+	private static int getGreatestCommonDivisor(int a, int b){
 		int remainder = a % b;
 		int quotient = a / b;
-		
 		while (remainder != 0){
 			a = b;
 			b = remainder;
 			quotient = a / b;
 			remainder = a - (b * quotient);
 		}
-		
 		return b;
 	}
 	

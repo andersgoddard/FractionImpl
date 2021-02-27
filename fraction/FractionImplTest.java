@@ -40,14 +40,6 @@ public class FractionImplTest extends TestCase {
 		}		
 	}
 	
-	public void testCreateAndReduce(){
-		FractionImpl fraction = new FractionImpl(48, 60);
-		assertEquals("4/5", fraction.toString());
-		
-		FractionImpl fraction2 = new FractionImpl("25/5");
-		assertEquals("5", fraction2.toString());
-	}
-	
 	public void testZero(){
 		FractionImpl fraction = new FractionImpl(0);
 		assertEquals("0", fraction.toString());
@@ -60,14 +52,11 @@ public class FractionImplTest extends TestCase {
 		FractionImpl fraction = new FractionImpl("-1/3");
 		assertEquals("-1/3", fraction.toString());
 		
-		FractionImpl fraction2 = new FractionImpl("1/-3");
-		assertEquals("-1/3", fraction2.toString());
+		fraction = new FractionImpl("1/-3");
+		assertEquals("-1/3", fraction.toString());
 		
-		FractionImpl fraction3 = new FractionImpl("-3/-12");
-		assertEquals("1/4", fraction3.toString());
-		
-		FractionImpl fraction4 = new FractionImpl("-7");
-		assertEquals("-7", fraction4.toString());
+		fraction = new FractionImpl("-7");
+		assertEquals("-7", fraction.toString());
 	}
 	
 	public void testIncorrectStringConstructor(){
@@ -215,4 +204,34 @@ public class FractionImplTest extends TestCase {
 		comparison = fraction2.compareTo(fraction1);
 		assertEquals(-1, comparison);
 	}
+	
+	// reduceFraction and ensurePositiveDenominator update the fields of a FractionImpl object but I don't want to write 
+	// getters for the numerator and denominator fields just to test two small helper methods - the below tests show that they work as expected
+	public void testCreateAndReduce(){
+		FractionImpl fraction = new FractionImpl(48, 60);
+		assertEquals("4/5", fraction.toString());
+		
+		fraction = new FractionImpl("25/5");
+		assertEquals("5", fraction.toString());
+
+		FractionImpl fraction = new FractionImpl("-3/-12");
+		assertEquals("1/4", fraction.toString());		
+	}
+	
+	public void testEnsurePositiveDenominator(){
+		FractionImpl fraction = new FractionImpl("-1/-3");
+		assertEquals("1/3", fraction.toString());
+		
+		fraction = new FractionImpl("1/-3");
+		assertEquals("-1/3", fraction.toString());
+	}
+	
+	// The below tests are commented out because I have made the getGreatestCommonDivisor static method private in FractionImpl.
+	// To test, remove the private access modifier in FractionImpl and uncomment lines 236 to 240 below
+
+	// public void testGetGreatestCommonDivisor(){
+		// assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
+		// assertEquals(17, FractionImpl.getGreatestCommonDivisor(731, 2431));
+		// assertEquals(4, FractionImpl.getGreatestCommonDivisor(4, 4));
+	// }	
 }
