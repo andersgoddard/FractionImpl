@@ -214,7 +214,7 @@ public class FractionImplTest extends TestCase {
 		fraction = new FractionImpl("25/5");
 		assertEquals("5", fraction.toString());
 
-		FractionImpl fraction = new FractionImpl("-3/-12");
+		fraction = new FractionImpl("-3/-12");
 		assertEquals("1/4", fraction.toString());		
 	}
 	

@@ -205,7 +205,8 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction negate() {
-        return new FractionImpl(0 - numerator, denominator);
+		Fraction negated = new FractionImpl(0 - numerator, denominator);		
+        return negated;
     }
 
     /**
@@ -221,9 +222,12 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public boolean equals(Object obj) {
-		FractionImpl that = new FractionImpl(obj.toString()); 
-		
-        return this.numerator == that.numerator && this.denominator == that.denominator && obj instanceof Fraction; // should this instanceof check be done earlier in the method?
+		if (obj instanceof Fraction){
+			FractionImpl that = new FractionImpl(obj.toString()); 			
+			return this.numerator == that.numerator && this.denominator == that.denominator;			
+		} else {
+			return false;
+		}	
     }
 
     /**
