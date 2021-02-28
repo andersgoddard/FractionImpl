@@ -227,7 +227,7 @@ public class FractionImplTest extends TestCase {
 	}
 	
 	// The below tests are commented out because I have made the getGreatestCommonDivisor static method private in FractionImpl.
-	// To test, remove the private access modifier in FractionImpl and uncomment lines 236 to 240 below
+	// To test, remove the private access modifier in FractionImpl and uncomment lines 232 to 236 below
 
 	// public void testGetGreatestCommonDivisor(){
 		// assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
