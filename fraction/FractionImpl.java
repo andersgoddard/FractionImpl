@@ -44,7 +44,7 @@ public class FractionImpl implements Fraction {
      * @param wholeNumber representing the numerator
      */
     public FractionImpl(int wholeNumber) {
-        this.numerator = wholeNumber;
+		this.numerator = wholeNumber;
 		this.denominator = 1;
     }
 
@@ -55,7 +55,7 @@ public class FractionImpl implements Fraction {
      * @param fraction the string representation of the fraction
      */
     public FractionImpl(String fraction) throws ArithmeticException, NumberFormatException {
-        fraction = fraction.trim();
+		fraction = fraction.trim();
 		String[] elements = fraction.split("/");
 		String numerator;
 		
