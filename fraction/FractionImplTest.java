@@ -204,6 +204,12 @@ public class FractionImplTest extends TestCase {
 		comparison = fraction2.compareTo(fraction1);
 		assertEquals(-1, comparison);
 	}
+
+	public void testGetGreatestCommonDivisor(){
+		assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
+		assertEquals(17, FractionImpl.getGreatestCommonDivisor(731, 2431));
+		assertEquals(4, FractionImpl.getGreatestCommonDivisor(4, 4));
+	}	
 	
 	// reduceFraction and ensurePositiveDenominator update the fields of a FractionImpl object but I don't want to write 
 	// getters for the numerator and denominator fields just to test two small helper methods - the below tests show that they work as expected
@@ -225,13 +231,4 @@ public class FractionImplTest extends TestCase {
 		fraction = new FractionImpl("1/-3");
 		assertEquals("-1/3", fraction.toString());
 	}
-	
-	// The below tests are commented out because I have made the getGreatestCommonDivisor static method private in FractionImpl.
-	// To test, remove the private access modifier in FractionImpl and uncomment lines 232 to 236 below
-
-	// public void testGetGreatestCommonDivisor(){
-		// assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
-		// assertEquals(17, FractionImpl.getGreatestCommonDivisor(731, 2431));
-		// assertEquals(4, FractionImpl.getGreatestCommonDivisor(4, 4));
-	// }	
 }

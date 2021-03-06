@@ -102,7 +102,7 @@ public class FractionImpl implements Fraction {
 	 * @param b the numerator field in the object
      * @return the greatest common divisor of a and b
      */	
-	private static int getGreatestCommonDivisor(int a, int b){
+	protected static int getGreatestCommonDivisor(int a, int b){
 		int remainder = a % b;
 		int quotient = a / b;
 		while (remainder != 0){
