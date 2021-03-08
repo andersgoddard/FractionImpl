@@ -29,14 +29,14 @@ public class FractionImplTest extends TestCase {
 			FractionImpl fraction1 = new FractionImpl("3/0");
 			fail();
 		} catch (ArithmeticException expected){
-			assertEquals(expected.getMessage(), "Division by zero error");
+			assertEquals(expected.getMessage(), "division by zero error");
 		}
 		
 		try {
 			FractionImpl fraction2 = new FractionImpl(3, 0);
 			fail();
 		} catch (ArithmeticException expected){
-			assertEquals(expected.getMessage(), "Division by zero error");
+			assertEquals(expected.getMessage(), "division by zero error");
 		}		
 	}
 	
@@ -91,7 +91,7 @@ public class FractionImplTest extends TestCase {
 			Fraction fraction5 = fraction4.inverse();
 			fail();
 		} catch (ArithmeticException expected){
-			assertEquals(expected.getMessage(), "Division by zero error");
+			assertEquals(expected.getMessage(), "division by zero error");
 		}
 	}
 	
@@ -175,7 +175,7 @@ public class FractionImplTest extends TestCase {
 			fraction3 = fraction2.divide(fraction);
 			fail();
 		} catch (ArithmeticException expected){
-			assertEquals(expected.getMessage(), "Division by zero error");
+			assertEquals(expected.getMessage(), "division by zero error");
 		}
 	}
 	

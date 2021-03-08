@@ -28,7 +28,7 @@ public class FractionImpl implements Fraction {
      */	
     public FractionImpl(int numerator, int denominator) throws ArithmeticException {
 		if (denominator == 0)
-			throw new ArithmeticException("Division by zero error");
+			throw new ArithmeticException("division by zero error");
 		else {		
 			this.numerator = numerator;
 			this.denominator = denominator;
@@ -72,7 +72,7 @@ public class FractionImpl implements Fraction {
 			}		
 			
 			if (denominator == 0)
-				throw new ArithmeticException("Division by zero error");
+				throw new ArithmeticException("division by zero error");
 			
 			reduceFraction();
 			ensurePositiveDenominator();
