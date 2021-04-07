@@ -65,7 +65,14 @@ public class FractionImplTest extends TestCase {
 			fail();
 		} catch (NumberFormatException expected){
 			assertEquals(expected.getMessage(), "Cannot have spaces within the numerator or denominator");
-		}		
+		}	
+
+		try {
+			FractionImpl fraction = new FractionImpl("- 4/12");
+			fail();
+		} catch (NumberFormatException expected){
+			assertEquals(expected.getMessage(), "Cannot have spaces within the numerator or denominator");
+		}			
 	}
 	
 	public void testAbs(){
@@ -204,15 +211,15 @@ public class FractionImplTest extends TestCase {
 		comparison = fraction2.compareTo(fraction1);
 		assertEquals(-1, comparison);
 	}
-
-	public void testGetGreatestCommonDivisor(){
-		assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
-		assertEquals(17, FractionImpl.getGreatestCommonDivisor(731, 2431));
-		assertEquals(4, FractionImpl.getGreatestCommonDivisor(4, 4));
-	}	
 	
-	// reduceFraction and ensurePositiveDenominator update the fields of a FractionImpl object but I don't want to write 
-	// getters for the numerator and denominator fields just to test two small helper methods - the below tests show that they work as expected
+	// Commenting this out because I want the getGreatestCommonDivisor method to be private
+	// public void testGetGreatestCommonDivisor(){
+		// assertEquals(5, FractionImpl.getGreatestCommonDivisor(5, 20));
+		// assertEquals(17, FractionImpl.getGreatestCommonDivisor(731, 2431));
+		// assertEquals(4, FractionImpl.getGreatestCommonDivisor(4, 4));
+	// }	
+	
+	// The following tests confirm indirectly that the improveFractionCandidate helper method works as expected
 	public void testCreateAndReduce(){
 		FractionImpl fraction = new FractionImpl(48, 60);
 		assertEquals("4/5", fraction.toString());

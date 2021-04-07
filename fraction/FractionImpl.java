@@ -16,9 +16,8 @@ public class FractionImpl implements Fraction {
      * @param denominator
      */
 	 
-	private int numerator; 
-	private int denominator;
-	
+	private final int numerator; 
+	private final int denominator;
 
     /**
      * The parameter is the numerator and denominator.
@@ -27,16 +26,23 @@ public class FractionImpl implements Fraction {
 	 * @param denominator the integer representing the denominator
      */	
     public FractionImpl(int numerator, int denominator) throws ArithmeticException {
+		
+		int tempNumerator;
+		int tempDenominator;
+		
 		if (denominator == 0)
 			throw new ArithmeticException("division by zero error");
 		else {		
-			this.numerator = numerator;
-			this.denominator = denominator;
+			tempNumerator = numerator;
+			tempDenominator = denominator;
 		}
 		
-		reduceFraction();
-		ensurePositiveDenominator();		
-    }
+		int[] fractionCandidate = {tempNumerator, tempDenominator};
+		fractionCandidate = improveFractionCandidate(fractionCandidate);
+			
+		this.numerator = fractionCandidate[0];
+		this.denominator = fractionCandidate[1];
+    }	
 
     /**
      * The parameter is the numerator and <code>1</code> is the implicit denominator.
@@ -58,41 +64,70 @@ public class FractionImpl implements Fraction {
 		fraction = fraction.trim();
 		String[] elements = fraction.split("/");
 		String numerator;
+		int tempNumerator = 0;
+		int tempDenominator = 0;
 		
 		try {
 			if (elements.length == 1){
 				numerator = elements[0].trim();
-				this.numerator = Integer.parseInt(numerator);
-				this.denominator = 1;
+				tempNumerator = Integer.parseInt(numerator);
+				tempDenominator = 1;
 			} else if (elements.length == 2){
 				numerator = elements[0].trim();
 				String denominator = elements[1].trim();
-				this.numerator = Integer.parseInt(numerator);
-				this.denominator = Integer.parseInt(denominator);
-			}		
+				tempNumerator = Integer.parseInt(numerator);
+				tempDenominator = Integer.parseInt(denominator);
+			} 	
 			
-			if (denominator == 0)
+			if (tempDenominator == 0)
 				throw new ArithmeticException("division by zero error");
 			
-			reduceFraction();
-			ensurePositiveDenominator();
+			int[] fractionCandidate = {tempNumerator, tempDenominator};
+			fractionCandidate = improveFractionCandidate(fractionCandidate);
+			
+			this.numerator = fractionCandidate[0];
+			this.denominator = fractionCandidate[1];
+
 		} catch (NumberFormatException e) {
 			throw new NumberFormatException("Cannot have spaces within the numerator or denominator");
 		}
     }
 
     /**
-     * Divides the numerator and denominator in the instance of the class by the greatest common divisor
-     */	
-	private void reduceFraction(){
-		if (numerator == 0)
-			denominator = 1;
-		else {
-			int greatestCommonDivisor = getGreatestCommonDivisor(denominator, numerator);
-			numerator = numerator / greatestCommonDivisor;
-			denominator = denominator / greatestCommonDivisor;
+     * Returns a new <code>int[] array</code> where the fraction candidate has been reduced by dividing the numerator and denominator by their greatest common divisor
+	 * and ensured the denominator is positive 
+	 *
+	 * @param fractionCandidate an int[] array representing the fraction to be improved 
+     * @return the correctly reduced fraction candidate as an int array
+     */		
+	private static int[] improveFractionCandidate(int[] fractionCandidate){
+		
+		int tempNumerator = fractionCandidate[0];
+		int tempDenominator = fractionCandidate[1];
+		
+		// Reduce the fraction by finding out greatest common divisor and dividing the numerator and denominator by it
+		int divisor = getGreatestCommonDivisor(tempNumerator, tempDenominator);
+		tempNumerator = tempNumerator / divisor;
+		tempDenominator = tempDenominator / divisor;
+		
+		// Ensure positive denominator
+		if (tempDenominator < 0){
+			tempNumerator = 0 - tempNumerator;
+			tempDenominator = 0 - tempDenominator;
 		}
+		
+		if (tempNumerator == 0){
+			fractionCandidate[0] = tempNumerator;
+			fractionCandidate[1] = 1;
+		}
+		else {		
+			fractionCandidate[0] = tempNumerator;
+			fractionCandidate[1] = tempDenominator;
+		}
+		
+		return fractionCandidate;
 	}
+	
 
     /**
      * Returns a new <code>int</code> that is the greatest common divisor of a and b using 
@@ -102,7 +137,7 @@ public class FractionImpl implements Fraction {
 	 * @param b the numerator field in the object
      * @return the greatest common divisor of a and b
      */	
-	protected static int getGreatestCommonDivisor(int a, int b){
+	private static int getGreatestCommonDivisor(int a, int b){
 		int remainder = a % b;
 		int quotient = a / b;
 		while (remainder != 0){
@@ -112,17 +147,6 @@ public class FractionImpl implements Fraction {
 			remainder = a - (b * quotient);
 		}
 		return b;
-	}
-	
-    /**
-     * Checks if the denominator is less than 0 and, if so, reassigns the numerator and denominator to 0 subtracted by itself
-	 * e.g. numerator of -1 and denominator of -3 becomes 1 and 3 respectively
-     */		
-	private void ensurePositiveDenominator(){
-		if (denominator < 0){
-			numerator = 0 - numerator;
-			denominator = 0 - denominator;
-		}
 	}
 
     /**

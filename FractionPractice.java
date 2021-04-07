@@ -4,6 +4,33 @@ import fraction.*;
 
 public class FractionPractice {
 	
+	public static void main(String args[]){
+		Scanner in = new Scanner(System.in);
+		String s = "";
+		printInstructions();
+		Fraction fraction1;
+		Fraction fraction2;
+		
+		while (true){
+			try {
+			System.out.println("Please provide your first fraction.");
+			s = in.nextLine();
+			fraction1 = getFraction(s);
+
+			System.out.println("Please provide your second fraction.");
+			s = in.nextLine();
+			fraction2 = getFraction(s);	
+
+			System.out.println();
+			System.out.println("Your fractions are: " + fraction1.toString() + " and " + fraction2.toString());
+			printCalculations(fraction1, fraction2);		
+			break;
+			} catch (Exception e){
+				System.out.println("Invalid inputs. Try again.");
+			}
+		}
+	}
+	
 	private static void printInstructions(){
 		System.out.println("This program creates fractions from user-provided numerators and denominators and provides a series of calculations.");
 		System.out.println("There are 3 ways to create a fraction here:");
@@ -28,8 +55,7 @@ public class FractionPractice {
 				if (elements.length > 2)
 					System.out.println("There is a problem with your input. Fraction will be created using " + elements[0] + " and " + elements[1]);
 				fraction = new FractionImpl(Integer.parseInt(elements[0]), Integer.parseInt(elements[1]));
-			}		
-			
+			}				
 			return fraction;
 	}
 	
@@ -77,30 +103,4 @@ public class FractionPractice {
 		}		
 	}
 	
-	public static void main(String args[]){
-		Scanner in = new Scanner(System.in);
-		String s = "";
-		printInstructions();
-		Fraction fraction1;
-		Fraction fraction2;
-		
-		while (true){
-			try {
-			System.out.println("Please provide your first fraction.");
-			s = in.nextLine();
-			fraction1 = getFraction(s);
-
-			System.out.println("Please provide your second fraction.");
-			s = in.nextLine();
-			fraction2 = getFraction(s);	
-
-			System.out.println();
-			System.out.println("Your fractions are: " + fraction1.toString() + " and " + fraction2.toString());
-			printCalculations(fraction1, fraction2);		
-			break;
-			} catch (Exception e){
-				System.out.println("Invalid inputs. Try again.");
-			}
-		}
-	}
 }
