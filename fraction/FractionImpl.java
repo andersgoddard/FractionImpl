@@ -25,13 +25,15 @@ public class FractionImpl implements Fraction {
      * @param numerator the integer representing the numerator 
 	 * @param denominator the integer representing the denominator
      */	
-    public FractionImpl(int numerator, int denominator) throws ArithmeticException {
+    public FractionImpl(int numerator, int denominator) throws ArithmeticException, NumberFormatException {
 		
 		int tempNumerator;
 		int tempDenominator;
 		
 		if (denominator == 0)
-			throw new ArithmeticException("division by zero error");
+			throw new ArithmeticException("Division by zero error");
+		else if (denominator == -2147483648)
+			throw new NumberFormatException("integer overflow error");			
 		else {		
 			tempNumerator = numerator;
 			tempDenominator = denominator;
@@ -62,35 +64,45 @@ public class FractionImpl implements Fraction {
      */
     public FractionImpl(String fraction) throws ArithmeticException, NumberFormatException {
 		fraction = fraction.trim();
+		
+		if (fraction.charAt(0) == '/')
+			throw new NumberFormatException("Numerator required before a /");
+		
+		if (fraction.charAt(fraction.length()-1) == '/')
+			throw new NumberFormatException("Denominator required after a /");
+		
 		String[] elements = fraction.split("/");
 		String numerator;
 		int tempNumerator = 0;
 		int tempDenominator = 0;
 		
-		try {
-			if (elements.length == 1){
-				numerator = elements[0].trim();
-				tempNumerator = Integer.parseInt(numerator);
-				tempDenominator = 1;
-			} else if (elements.length == 2){
+		if (elements.length == 1){
+			numerator = elements[0].trim();
+			tempNumerator = Integer.parseInt(numerator);
+			tempDenominator = 1;
+		} else if (elements.length == 2){
+			try {					
 				numerator = elements[0].trim();
 				String denominator = elements[1].trim();
 				tempNumerator = Integer.parseInt(numerator);
 				tempDenominator = Integer.parseInt(denominator);
-			} 	
-			
-			if (tempDenominator == 0)
-				throw new ArithmeticException("division by zero error");
-			
-			int[] fractionCandidate = {tempNumerator, tempDenominator};
-			fractionCandidate = improveFractionCandidate(fractionCandidate);
-			
-			this.numerator = fractionCandidate[0];
-			this.denominator = fractionCandidate[1];
-
-		} catch (NumberFormatException e) {
-			throw new NumberFormatException("Cannot have spaces within the numerator or denominator");
+			} catch (NumberFormatException e){
+				throw new NumberFormatException("The numerator and denominator must be integers and cannot contain spaces");
+			}
+		} else {
+			throw new NumberFormatException("You can only enter one numerator and one denominator separated by a slash");
 		}
+			
+		if (tempDenominator == 0)
+			throw new ArithmeticException("Division by zero error");
+		else if (tempDenominator == -2147483648)
+			throw new NumberFormatException("Integer overflow error");
+		
+		int[] fractionCandidate = {tempNumerator, tempDenominator};
+		fractionCandidate = improveFractionCandidate(fractionCandidate);
+		
+		this.numerator = fractionCandidate[0];
+		this.denominator = fractionCandidate[1];
     }
 
     /**
@@ -116,6 +128,7 @@ public class FractionImpl implements Fraction {
 			tempDenominator = 0 - tempDenominator;
 		}
 		
+		// Set numerator and denominator
 		if (tempNumerator == 0){
 			fractionCandidate[0] = tempNumerator;
 			fractionCandidate[1] = 1;
@@ -127,7 +140,6 @@ public class FractionImpl implements Fraction {
 		
 		return fractionCandidate;
 	}
-	
 
     /**
      * Returns a new <code>int</code> that is the greatest common divisor of a and b using 
@@ -154,11 +166,31 @@ public class FractionImpl implements Fraction {
      */
 	 
     @Override
-    public Fraction add(Fraction f) {
-		FractionImpl that = new FractionImpl(f.toString());
+    public Fraction add(Fraction f) throws ArithmeticException {		
+		FractionImpl that = new FractionImpl(f.toString());	
+
+		// Early return for a 0 result
+		if ((this.numerator + that.numerator) == 0 && this.denominator == that.denominator){
+			Fraction fraction = new FractionImpl(0);
+			return fraction;
+		}		
+
+		// Exception handling for very large numerators and denominators	
+		if ((this.numerator > 0 && that.numerator > 0) && (this.numerator + that.numerator) < 0)
+			throw new ArithmeticException("Integer overflow error");
+		if ((this.numerator < 0 && that.numerator < 0) && (this.numerator + that.numerator) > 0)
+			throw new ArithmeticException("Integer overflow error");
+		if ((this.denominator > 0 && that.denominator > 0) && (this.denominator + that.denominator) < 0)
+			throw new ArithmeticException("Integer overflow error");
+		if ((this.denominator < 0 && that.denominator < 0) && (this.denominator + that.denominator) > 0)
+			throw new ArithmeticException("Integer overflow error");
+		if (multiplicationOverflows(this.numerator, that.denominator) || multiplicationOverflows(this.denominator, that.numerator) || multiplicationOverflows(this.denominator, that.denominator))
+			throw new ArithmeticException("Integer overflow error");		
 		
+		
+		// Implementation of fraction addition
 		int newNumerator = (this.numerator * that.denominator)+(this.denominator * that.numerator);
-		int newDenominator = this.denominator * that.denominator;
+		int newDenominator = this.denominator * that.denominator;		
 		
 		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
 		
@@ -172,6 +204,22 @@ public class FractionImpl implements Fraction {
     public Fraction subtract(Fraction f) {
         FractionImpl that = new FractionImpl(f.toString());
 		
+		// Early return for a 0 result
+		if (this.numerator == that.numerator && this.denominator == that.denominator){
+			Fraction fraction = new FractionImpl(0);
+			return fraction;
+		}		
+		
+		// Exception handling for very large numerators and denominators
+		if ((this.numerator > 0 && that.numerator < 0) && (this.numerator - that.numerator) < 0)
+			throw new ArithmeticException("Integer overflow error");
+		if ((this.numerator < 0 && that.numerator > 0) && (this.numerator - that.numerator) > 0)
+			throw new ArithmeticException("Integer overflow error");
+		
+		if (multiplicationOverflows(this.numerator, that.denominator) || multiplicationOverflows(this.denominator, that.numerator) || multiplicationOverflows(this.denominator, that.denominator))
+			throw new ArithmeticException("Integer overflow error");
+
+		// Implementation of fraction subtraction
 		int newNumerator = (this.numerator * that.denominator)-(this.denominator * that.numerator);
 		int newDenominator = this.denominator * that.denominator;
 		
@@ -187,6 +235,11 @@ public class FractionImpl implements Fraction {
     public Fraction multiply(Fraction f) {
         FractionImpl that = new FractionImpl(f.toString());
 		
+		// Exception handling for very large numerators and denominators
+		if (multiplicationOverflows(this.numerator, that.numerator) || multiplicationOverflows(this.denominator, that.denominator))
+			throw new ArithmeticException("Integer overflow error");
+		
+		// Implementation of fraction multiplication
 		int newNumerator = this.numerator * that.numerator;
 		int newDenominator = this.denominator * that.denominator;
 		
@@ -201,19 +254,40 @@ public class FractionImpl implements Fraction {
     public Fraction divide(Fraction f) {
         FractionImpl that = new FractionImpl(f.toString());
 		
+		// Exception handling for very large numerators and denominators				
+		if (multiplicationOverflows(this.numerator, that.denominator) || multiplicationOverflows(this.denominator, that.numerator))
+			throw new ArithmeticException("Integer overflow error");
+		
+		// Implementation of fraction division
 		int newNumerator = this.numerator * that.denominator;
 		int newDenominator = this.denominator * that.numerator;
 		
 		Fraction fraction = new FractionImpl(newNumerator, newDenominator);
         return fraction;
     }
+	
+	
+	  /**
+     * Returns a boolean to indicate whether the product of the parameters is larger than a 32-bit integer 
+	 *
+	 * @param a the first int 
+	 * @param b the second int
+     * @return whether or not the product overflows
+     */		
+	private static boolean multiplicationOverflows(int a, int b){
+		int prod = a * b;
+		return b != 0 && (prod / b) != a;
+	}
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Fraction abs() {
-        Fraction fraction;
+    public Fraction abs() throws ArithmeticException {
+		if (numerator == -2147483648)
+			throw new ArithmeticException("Integer overflow error"); 
+
+		Fraction fraction;
 		
 		if (numerator < 0){
 			fraction = new FractionImpl(0 - numerator, denominator);
@@ -228,7 +302,10 @@ public class FractionImpl implements Fraction {
      * {@inheritDoc}
      */
     @Override
-    public Fraction negate() {
+    public Fraction negate() throws ArithmeticException {
+		if (numerator == -2147483648)
+			throw new ArithmeticException("Integer overflow error");
+		
 		Fraction negated = new FractionImpl(0 - numerator, denominator);		
         return negated;
     }
@@ -267,6 +344,9 @@ public class FractionImpl implements Fraction {
      */
     @Override
     public Fraction inverse() {
+		if (numerator == -2147483648)
+			throw new ArithmeticException("Integer overflow error");
+		
 		Fraction fraction = new FractionImpl(denominator, numerator);
         return fraction;
     }
@@ -281,10 +361,10 @@ public class FractionImpl implements Fraction {
 		if (this.equals(that))
 			return 0;
 		
-		double thisDouble = this.numerator / this.denominator;
-		double thatDouble = that.numerator / that.denominator;
+		double thisDouble = (double)this.numerator / this.denominator;
+		double thatDouble = (double)that.numerator / that.denominator;
 		
-		if (thatDouble > thisDouble)
+		if (thisDouble > thatDouble)
 			return 1;
 		else 
 			return -1;
