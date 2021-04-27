@@ -254,7 +254,7 @@ public class FractionImpl implements Fraction {
     public Fraction divide(Fraction f) {
         FractionImpl that = new FractionImpl(f.toString());
 		
-		// Exception handling for very large numerators and denominators				
+		// Exception handling for very large numerators and denominators
 		if (multiplicationOverflows(this.numerator, that.denominator) || multiplicationOverflows(this.denominator, that.numerator))
 			throw new ArithmeticException("Integer overflow error");
 		
